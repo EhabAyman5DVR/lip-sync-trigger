@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 
-// Allow only your GitHub Pages domain
 const allowedOrigin = "https://ehabayman5dvr.github.io";
 
 // In-memory state (resets on server restart)
-let triggerState = { trigger: false, duration: 0 };
+let triggerState: { trigger: boolean; duration: number } = { trigger: false, duration: 0 };
 
 // 🔧 Utility to attach CORS headers to all responses
-function withCORS(json: any, status = 200) {
+function withCORS<T>(json: T, status = 200) {
   return NextResponse.json(json, {
     status,
     headers: {
